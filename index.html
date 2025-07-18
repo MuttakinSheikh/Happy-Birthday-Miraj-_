@@ -1,158 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Miraj!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
             background: linear-gradient(to right, #ff7e5f, #feb47b);
             color: white;
-            overflow-x: hidden;
+            margin: 0;
             padding: 20px;
-        }
+        }h1 {
+        font-family: 'Pacifico', cursive;
+        font-size: 3em;
+        margin-top: 40px;
+    }
 
-        h1 {
-            font-size: 2.5em;
-            margin-top: 30px;
-        }
+    #message {
+        font-size: 1.2em;
+        max-width: 600px;
+        margin: 20px auto;
+        line-height: 1.6;
+    }
 
-        #message {
-            font-size: 1.1em;
-            max-width: 90%;
-            margin: 20px auto;
-            line-height: 1.5;
-        }
+    .cake {
+        width: 80%;
+        max-width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        margin: 20px 0;
+    }
 
-        .cake {
-            width: 80%;
-            max-width: 300px;
-            margin: 20px auto;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
+    .footer {
+        margin-top: 30px;
+        font-size: 0.9em;
+    }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
+    button {
+        background: #fff;
+        border: none;
+        color: #ff7e5f;
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        transition: background 0.3s, color 0.3s;
+    }
 
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
+    button:hover {
+        background: #ff7e5f;
+        color: #fff;
+    }
 
-        @media (min-width: 768px) {
-            h1 {
-                font-size: 3.5em;
-            }
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+</style>
 
-            #message {
-                font-size: 1.3em;
-                max-width: 600px;
-            }
-        }
-    </style>
 </head>
-<body>
+<body><h1>🎂 Happy Birthday Miraj! 🎉</h1>
 
-    <h1>🎂 Happy Birthday Miraj! 🎉</h1>
+<img class="cake" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzN2MTVpbTA2ZXpudTIwenhsZWptc282b24zcWFqYWkwNnF6dm1lMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/izRAQY8vN5gUE/giphy.gif" alt="3D Birthday Cake">
 
-    <img class="cake" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzN2MTVpbTA2ZXpudTIwenhsZWptc282b24zcWFqYWkwNnF6dm1lMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/izRAQY8vN5gUE/giphy.gif" alt="3D Birthday Cake">
+<div id="message">
+    Miraj, আজকের দিনটা শুধুই তোমার জন্য।<br><br>
+    🎉 তুমি প্রতিটি মুহূর্ত উপভোগ করো, হাসো আর জীবনের প্রতিটি স্বপ্ন পূরণ করো।<br>
+    তুমি অনেক দূর যাবে, এই কামনা রইল। শুভ জন্মদিন! 🎈🎂<br><br>
+    Stay happy, Stay blessed! 😊✨
+</div>
 
-    <div id="message">
-        Miraj, আজকের দিনটা শুধুই তোমার জন্য।<br><br>
-        🎉 তুমি প্রতিটি মুহূর্ত উপভোগ করো, হাসো আর জীবনের প্রতিটি স্বপ্ন পূরণ করো।<br>
-        তুমি অনেক দূর যাবে, এই কামনা রইল। শুভ জন্মদিন! 🎈🎂<br><br>
-        Stay happy, Stay blessed! 😊✨
-    </div>
+<button onclick="playMusic()">🎵 Play Music</button>
+<button onclick="pauseMusic()">⏸ Pause Music</button>
 
-    <div class="footer">
-        Made with ❤️ by Muttakin Sheikh
-    </div>
+<audio id="bdayMusic" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
-    <audio autoplay loop >
-        <source src="birthday.mp3" type="audio/mpeg">
-    </audio>
+<canvas id="confetti"></canvas>
 
-    <canvas id="confetti"></canvas>
+<div class="footer">
+    Made with ❤️ by Muttakin Sheikh
+</div>
 
-    <script>
-        const canvas = document.getElementById('confetti');
-        const ctx = canvas.getContext('2d');
-        let W = window.innerWidth;
-        let H = window.innerHeight;
+<script>
+    const music = document.getElementById('bdayMusic');
+
+    function playMusic() {
+        music.play();
+    }
+
+    function pauseMusic() {
+        music.pause();
+    }
+
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    const maxConfetti = 100;
+    const confetti = [];
+
+    for (let i = 0; i < maxConfetti; i++) {
+        confetti.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 8 + 2,
+            d: Math.random() * maxConfetti,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+            tilt: Math.floor(Math.random() * 10) - 10,
+            tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
+            tiltAngle: 0
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        confetti.forEach(c => {
+            ctx.beginPath();
+            ctx.lineWidth = c.r;
+            ctx.strokeStyle = c.color;
+            ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
+            ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
+            ctx.stroke();
+        });
+
+        update();
+    }
+
+    function update() {
+        confetti.forEach(c => {
+            c.tiltAngle += c.tiltAngleIncremental;
+            c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+            c.x += Math.sin(c.d);
+            c.tilt = Math.sin(c.tiltAngle - (c.d / 3)) * 15;
+
+            if (c.y > H) {
+                c.x = Math.random() * W;
+                c.y = -20;
+            }
+        });
+    }
+
+    function loop() {
+        requestAnimationFrame(loop);
+        draw();
+    }
+
+    loop();
+
+    window.addEventListener('resize', () => {
+        W = window.innerWidth;
+        H = window.innerHeight;
         canvas.width = W;
         canvas.height = H;
-
-        const maxConfetti = 100;
-        const confetti = [];
-
-        for (let i = 0; i < maxConfetti; i++) {
-            confetti.push({
-                x: Math.random() * W,
-                y: Math.random() * H,
-                r: Math.random() * 8 + 2,
-                d: Math.random() * maxConfetti,
-                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-                tilt: Math.floor(Math.random() * 10) - 10,
-                tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
-                tiltAngle: 0
-            });
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            confetti.forEach(c => {
-                ctx.beginPath();
-                ctx.lineWidth = c.r;
-                ctx.strokeStyle = c.color;
-                ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
-                ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
-                ctx.stroke();
-            });
-
-            update();
-        }
-
-        function update() {
-            confetti.forEach(c => {
-                c.tiltAngle += c.tiltAngleIncremental;
-                c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
-                c.x += Math.sin(c.d);
-                c.tilt = Math.sin(c.tiltAngle - (c.d / 3)) * 15;
-
-                if (c.y > H) {
-                    c.x = Math.random() * W;
-                    c.y = -20;
-                }
-            });
-        }
-
-        function loop() {
-            requestAnimationFrame(loop);
-            draw();
-        }
-
-        loop();
-
-        window.addEventListener('resize', () => {
-            W = window.innerWidth;
-            H = window.innerHeight;
-            canvas.width = W;
-            canvas.height = H;
-        });
-    </script>
+    });
+</script>
 
 </body>
 </html>
